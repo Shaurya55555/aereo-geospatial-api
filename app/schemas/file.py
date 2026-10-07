@@ -44,6 +44,10 @@ class MeasurementOut(BaseModel):
     geometry: dict[str, Any] | None = None
 
 
+class ErrorOut(BaseModel):
+    detail: str
+
+
 class MeasurementsOut(BaseModel):
     model_config = ConfigDict(
         json_schema_extra={
@@ -62,6 +66,10 @@ class MeasurementsOut(BaseModel):
                         "status": "SUCCESS",
                         "error": None,
                         "properties": {"Name": "Plot A"},
+                        "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [[[75.80, 26.90], [75.81, 26.90], [75.81, 26.91], [75.80, 26.90]]],
+                        },
                     },
                     {
                         "feature_id": 1,
@@ -72,6 +80,7 @@ class MeasurementsOut(BaseModel):
                         "status": "SUCCESS",
                         "error": None,
                         "properties": {"Name": "Road"},
+                        "geometry": {"type": "LineString", "coordinates": [[75.80, 26.90], [75.81, 26.91]]},
                     },
                     {
                         "feature_id": 2,
@@ -82,6 +91,7 @@ class MeasurementsOut(BaseModel):
                         "status": "NO_MEASUREMENT_REQUIRED",
                         "error": None,
                         "properties": {"Name": "Gate"},
+                        "geometry": {"type": "Point", "coordinates": [75.80, 26.90]},
                     },
                 ],
             }

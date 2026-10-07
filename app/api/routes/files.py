@@ -8,7 +8,7 @@ from app import config
 from app.database import get_db
 from app.exceptions import IngestionError
 from app.models.file import FileRecord
-from app.schemas.file import FileOut, MeasurementOut, MeasurementsOut
+from app.schemas.file import ErrorOut, FileOut, MeasurementOut, MeasurementsOut
 from app.services.processing import process_upload
 from app.utils.file_security import clean_filename, save_upload
 
@@ -47,8 +47,23 @@ def _get_or_404(db: Session, file_id: str) -> FileRecord:
         "individually and do not fail the upload."
     ),
     responses={
-        400: {"description": "Wrong extension, empty file or file too large"},
-        422: {"description": "File content is invalid (corrupt zip, missing .prj, unreadable KML, ...)"},
+        400: {
+            "model": ErrorOut,
+            "description": "Wrong extension, empty file or file too large",
+            "content": {"application/json": {"example": {"detail": "Only .kml and .zip (Shapefile) files are accepted."}}},
+        },
+        422: {
+            "model": ErrorOut,
+            "description": "File content is invalid (corrupt zip, missing .prj, unreadable KML, ...)",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "detail": "Shapefile has no .prj file, so its coordinate system is unknown. "
+                        "Measurements are not calculated on an assumed CRS."
+                    }
+                }
+            },
+        },
     },
 )
 def upload_file(file: UploadFile = File(...), db: Session = Depends(get_db)) -> FileOut:
@@ -67,7 +82,12 @@ def upload_file(file: UploadFile = File(...), db: Session = Depends(get_db)) -> 
     return _file_out(record)
 
 
-@router.get("/{file_id}/", response_model=FileOut, summary="Get information about an uploaded file")
+@router.get(
+    "/{file_id}/",
+    response_model=FileOut,
+    summary="Get information about an uploaded file",
+    responses={404: {"model": ErrorOut, "description": "Unknown file id", "content": {"application/json": {"example": {"detail": "File not found."}}}}},
+)
 def get_file(file_id: str, db: Session = Depends(get_db)) -> FileOut:
     return _file_out(_get_or_404(db, file_id))
 
@@ -77,6 +97,7 @@ def get_file(file_id: str, db: Session = Depends(get_db)) -> FileOut:
     response_model=MeasurementsOut,
     summary="Get per-feature measurements",
     description="Areas are in square metres and lengths in metres, calculated in `measurement_crs`.",
+    responses={404: {"model": ErrorOut, "description": "Unknown file id", "content": {"application/json": {"example": {"detail": "File not found."}}}}},
 )
 def get_measurements(
     file_id: str,

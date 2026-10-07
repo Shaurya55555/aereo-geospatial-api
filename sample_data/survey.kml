@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document id="root_doc">
+<Folder><name>survey</name>
+  <Placemark id="survey.1">
+	<name>Plot 1km square</name>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+      <Polygon><outerBoundaryIs><LinearRing><coordinates>77.5269614563664,26.8921988952374 77.5271623133377,26.9012188051301 77.5171017843774,26.9013985715092 77.5169017249469,26.8923785917902 77.5269614563664,26.8921988952374</coordinates></LinearRing></outerBoundaryIs></Polygon>
+  </Placemark>
+  <Placemark id="survey.2">
+	<name>Plot with hole</name>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+      <Polygon><outerBoundaryIs><LinearRing><coordinates>77.5470806361476,26.8918373565119 77.5472830881035,26.9008571259189 77.5372227480376,26.9010383232581 77.5370210935578,26.8920184834694 77.5470806361476,26.8918373565119</coordinates></LinearRing></outerBoundaryIs><innerBoundaryIs><LinearRing><coordinates>77.5446163136405,26.8941376532681 77.544717439935,26.8986475467824 77.5396873695982,26.8987381366542 77.5395864426728,26.8942282255445 77.5446163136405,26.8941376532681</coordinates></LinearRing></innerBoundaryIs></Polygon>
+  </Placemark>
+  <Placemark id="survey.3">
+	<name>Two small plots</name>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+      <MultiGeometry><Polygon><outerBoundaryIs><LinearRing><coordinates>77.5183080746144,26.9104005869154 77.5183281030924,26.9113025821903 77.5173219581911,26.9113205342987 77.5173019376944,26.9104185383267 77.5183080746144,26.9104005869154</coordinates></LinearRing></outerBoundaryIs></Polygon><Polygon><outerBoundaryIs><LinearRing><coordinates>77.5233387451134,26.9103107224908 77.5233588134977,26.9112127142756 77.5223526732981,26.9112307021748 77.522332612895,26.9103287096914 77.5233387451134,26.9103107224908</coordinates></LinearRing></outerBoundaryIs></Polygon></MultiGeometry>
+  </Placemark>
+  <Placemark id="survey.4">
+	<name>Road</name>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+      <LineString><coordinates>77.5168017304291,26.8878685970937 77.5469794457873,26.8873274669592 77.5467771362822,26.8783076781575</coordinates></LineString>
+  </Placemark>
+  <Placemark id="survey.5">
+	<name>Gate</name>
+      <Point><coordinates>77.5220318197571,26.8967988069507</coordinates></Point>
+  </Placemark>
+  <Placemark id="survey.6">
+	<name>Bad bowtie polygon</name>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+      <Polygon><outerBoundaryIs><LinearRing><coordinates>77.5177025261164,26.9284584332434 77.5187288700104,26.9293424605794 77.5187088227344,26.9284404678865 77.5177225654036,26.9293604266337 77.5177025261164,26.9284584332434</coordinates></LinearRing></outerBoundaryIs></Polygon>
+  </Placemark>
+</Folder>
+</Document></kml>

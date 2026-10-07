@@ -1,0 +1,12 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: sqlite:////srv/data/app.db
+    volumes:
+      - api-data:/srv/data
+
+volumes:
+  api-data:

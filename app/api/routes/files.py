@@ -80,7 +80,7 @@ def get_file(file_id: str, db: Session = Depends(get_db)) -> FileOut:
 )
 def get_measurements(
     file_id: str,
-    include_geometry: bool = Query(False, description="Include each feature's GeoJSON geometry."),
+    include_geometry: bool = Query(True, description="Include each feature's GeoJSON geometry. Pass false for a smaller response."),
     db: Session = Depends(get_db),
 ) -> MeasurementsOut:
     record = _get_or_404(db, file_id)

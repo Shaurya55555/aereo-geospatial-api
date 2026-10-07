@@ -64,7 +64,7 @@ Returns the same body as the upload response. `404` if the id is unknown.
 
 ### `GET /api/files/{id}/measurements/`: per-feature results
 
-Add `?include_geometry=true` to include each feature's GeoJSON geometry (omitted by default to keep responses small).
+Each feature includes its GeoJSON `geometry` by default. Add `?include_geometry=false` for a smaller response without it.
 
 ```json
 {
@@ -82,7 +82,7 @@ Add `?include_geometry=true` to include each feature's GeoJSON geometry (omitted
       "status": "SUCCESS",
       "error": null,
       "properties": { "Name": "Plot with hole", "_layer": "survey" },
-      "geometry": null
+      "geometry": { "type": "Polygon", "coordinates": ["..."] }
     },
     {
       "feature_id": 5,
@@ -93,13 +93,13 @@ Add `?include_geometry=true` to include each feature's GeoJSON geometry (omitted
       "status": "FAILED",
       "error": "Invalid geometry: Self-intersection[77.518215696181 26.92890044529].",
       "properties": { "Name": "Bad bowtie polygon", "_layer": "survey" },
-      "geometry": null
+      "geometry": { "type": "Polygon", "coordinates": ["..."] }
     }
   ]
 }
 ```
 
-(`properties` is shortened here; it holds every attribute found in the file.)
+(`properties` and `coordinates` are shortened here; `properties` holds every attribute found in the file.)
 
 **Feature status values**
 

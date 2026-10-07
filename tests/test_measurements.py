@@ -135,17 +135,17 @@ def test_feature_ids_are_sequential_indexes(measurements):
     assert [m["feature_id"] for m in result["measurements"]] == [0, 1, 2]
 
 
-def test_geometry_hidden_by_default_and_shown_on_request(measurements):
+def test_geometry_is_returned_by_default_and_can_be_omitted(measurements):
     gdf = to_wgs84([utm_box(0, 0, 100, 100)], Name=["a"])
     content = write_shapefile_zip(gdf)
 
-    _, hidden = measurements("p.zip", content)
-    assert hidden["measurements"][0]["geometry"] is None
-
-    _, shown = measurements("p.zip", content, include_geometry="true")
-    geometry = shown["measurements"][0]["geometry"]
+    _, default = measurements("p.zip", content)
+    geometry = default["measurements"][0]["geometry"]
     assert geometry["type"] == "Polygon"
     assert len(geometry["coordinates"][0]) == 5
+
+    _, omitted = measurements("p.zip", content, include_geometry="false")
+    assert omitted["measurements"][0]["geometry"] is None
 
 
 def test_measurement_response_shape(measurements):
